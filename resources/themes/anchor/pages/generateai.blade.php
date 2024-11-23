@@ -93,6 +93,11 @@ $generateImage = function () {
                             <p class="text-red-500">{{ $imageUrl }}</p>
                         @endif
                     </div>
+                        <!-- Кнопка для сохранения изображения -->
+                            <a href="{{ $imageUrl }}" download="generated_image.jpg" 
+                               class="mt-3 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 inline-block">
+                                Сохранить картинку
+                            </a>
                 @endif
             </div>
         </x-app.container>
