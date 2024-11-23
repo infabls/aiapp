@@ -11,21 +11,22 @@ $generateImage = function () {
     $this->loading = true; // Устанавливаем состояние загрузки
     $this->imageUrl = '';
 
-    // Отправляем запрос к Replicate API
+    // Отправляем запрос к Replicate API с использованием модели
     $response = HttpFacade::withHeaders([
         'Authorization' => 'Bearer ' . env('REPLICATE_API_TOKEN'),
         'Content-Type' => 'application/json',
         'Prefer' => 'wait',
-    ])->post('https://api.replicate.com/v1/models/black-forest-labs/flux-redux-dev/predictions', [
+    ])->post('https://api.replicate.com/v1/predictions', [
+        'version' => '5599ed30703defd1d160a25a63321b4dec97101d98b4674bcc56e41f62f35637',
         'input' => [
-            'guidance' => 3,
-            'megapixels' => '1',
+            'width' => 1024,
+            'height' => 1024,
+            'prompt' => $this->prompt,
+            'scheduler' => 'K_EULER',
             'num_outputs' => 1,
-            'redux_image' => 'https://replicate.delivery/pbxt/M0mdz2nXiUmhpfLswjNdEHT3IhGtclUz7Q1sCw3XiHXzUugT/0_ZjYSm_q36J4KChdn.webp',
-            'aspect_ratio' => '4:3',
-            'output_format' => 'webp',
-            'output_quality' => 80,
-            'num_inference_steps' => 28
+            'guidance_scale' => 0,
+            'negative_prompt' => 'worst quality, low quality',
+            'num_inference_steps' => 4
         ],
     ]);
 
@@ -38,6 +39,7 @@ $generateImage = function () {
 
     $this->loading = false; // Завершаем состояние загрузки
 };
+
 
 ?>
 
