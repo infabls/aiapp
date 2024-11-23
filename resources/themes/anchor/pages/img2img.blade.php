@@ -21,7 +21,7 @@ $generateImage = function () {
             'guidance' => 3,
             'megapixels' => '1',
             'num_outputs' => 1,
-            'redux_image' => 'https://replicate.delivery/pbxt/M0mdz2nXiUmhpfLswjNdEHT3IhGtclUz7Q1sCw3XiHXzUugT/0_ZjYSm_q36J4KChdn.webp',
+            'redux_image' => $this->prompt,
             'aspect_ratio' => '4:3',
             'output_format' => 'webp',
             'output_quality' => 80,
@@ -61,18 +61,14 @@ $generateImage = function () {
                 @else
                     <p>This current logged in user has a <strong>{{ auth()->user()->roles()->first()->name }}</strong> role. To upgrade, <a href="{{ route('settings.subscription') }}" class="underline">subscribe to a plan</a>. Learn <a href="https://devdojo.com/wave/docs/features/roles-permissions" target="_blank" class="underline">more about roles</a> here.</p>
                 @endsubscriber
-                
-                @admin
-                    <x-app.message-for-admin />
-                @endadmin
             </div>
 
             <!-- Форма для ввода запроса и отображение результата -->
             <div class="w-full mt-5">
-                <h1 class="text-2xl font-bold mb-5">Генерация изображения</h1>
+                <h1 class="text-2xl font-bold mb-5">Генерация изображения по фото</h1>
 
                 <form wire:submit.prevent="generateImage" class="mb-5">
-                    <label for="prompt" class="block text-lg font-medium mb-2">Введите описание:</label>
+                    <label for="prompt" class="block text-lg font-medium mb-2">Введите ссылку на фото:</label>
                     <input type="text" id="prompt" wire:model="prompt" 
                         class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2" 
                         placeholder="Например, sunset over mountains" required>
